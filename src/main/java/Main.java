@@ -41,6 +41,10 @@ import structural.decorator.EmailNotifier;
 import structural.decorator.FacebookNotifierDecorator;
 import structural.decorator.INotifier;
 import structural.decorator.WhatsappNotifierDecorator;
+import structural.facade.CryptoCurrencyProvider;
+import structural.facade.CryptoFacade;
+import structural.facade.DatabaseService;
+import structural.facade.MailService;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -252,5 +256,10 @@ public class Main {
         INotifier notifierCombo = new WhatsappNotifierDecorator(new FacebookNotifierDecorator(new EmailNotifier(userDetails), userDetails), userDetails);
         notifierCombo.sendNotification("rahul", "test");
 
+        //Facade pattern
+        structural.facade.User rahulUser = new structural.facade.User(1110L, "Rahul", 1000000L, "abc@xyz.com");
+        DatabaseService db = new DatabaseService(List.of(rahulUser));
+        CryptoFacade facade = new CryptoFacade(db, new MailService());
+        facade.buyCryptoForUser("Rahul", "BTC", 1000L);
     }
 }
