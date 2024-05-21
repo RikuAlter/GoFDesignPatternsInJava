@@ -45,6 +45,7 @@ import structural.facade.CryptoCurrencyProvider;
 import structural.facade.CryptoFacade;
 import structural.facade.DatabaseService;
 import structural.facade.MailService;
+import structural.flyweight.BookProvider;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -261,5 +262,13 @@ public class Main {
         DatabaseService db = new DatabaseService(List.of(rahulUser));
         CryptoFacade facade = new CryptoFacade(db, new MailService());
         facade.buyCryptoForUser("Rahul", "BTC", 1000L);
+
+        //Flyweight pattern
+        structural.flyweight.Book storyBook = BookProvider.createBook("TTS", "12345", 33, "XYZ",
+                "Dummy", "DummyPrinter", "DummyEditor");
+        System.out.print("Book Created: "+storyBook);
+
+        //Proxy pattern
+        
     }
 }
