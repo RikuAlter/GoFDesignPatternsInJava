@@ -37,9 +37,15 @@ import structural.bridge.Pizza;
 import structural.composite.Book;
 import structural.composite.Box;
 import structural.composite.Videogame;
+import structural.decorator.EmailNotifier;
+import structural.decorator.FacebookNotifierDecorator;
+import structural.decorator.INotifier;
+import structural.decorator.WhatsappNotifierDecorator;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -229,8 +235,22 @@ public class Main {
         System.out.println(box.calculatePrice());
 
         //Decorator pattern
-        
+        Map<String, String> userDetailsRahul = new HashMap<>();
+        userDetailsRahul.put("email", "rahul@rahul.com");
+        userDetailsRahul.put("facebook", "rahulFacebook");
+        userDetailsRahul.put("whatsapp", "7767");
 
+        Map<String, String> userDetailsRiku = new HashMap<>();
+        userDetailsRiku.put("email", "riku@riku.com");
+        userDetailsRiku.put("facebook", "rikuFacebook");
+        userDetailsRiku.put("whatsapp", "7767");
+
+        Map<String, Map<String, String>> userDetails = new HashMap<>();
+        userDetails.put("rahul", userDetailsRahul);
+        userDetails.put("riku", userDetailsRiku);
+
+        INotifier notifierCombo = new WhatsappNotifierDecorator(new FacebookNotifierDecorator(new EmailNotifier(userDetails), userDetails), userDetails);
+        notifierCombo.sendNotification("rahul", "test");
 
     }
 }
