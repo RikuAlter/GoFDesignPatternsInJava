@@ -34,6 +34,9 @@ import structural.adapter.XmlJsonAdapter;
 import structural.bridge.AmericanMenu;
 import structural.bridge.ChickenPizza;
 import structural.bridge.Pizza;
+import structural.composite.Book;
+import structural.composite.Box;
+import structural.composite.Videogame;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -217,5 +220,17 @@ public class Main {
         //Bridge pattern
         AmericanMenu am = new AmericanMenu(new ChickenPizza());
         am.cook();
+
+        //Composite pattern
+        Box box = new Box(List.of(new Box(List.of(new Videogame("A", 23), new Videogame("B", 27))),
+                new Box(List.of(new Book("AA", 50), new Book("BB", 55))),
+                new Book("CC", 100)));
+
+        System.out.println(box.calculatePrice());
+
+        //Decorator pattern
+        
+
+
     }
 }
