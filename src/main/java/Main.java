@@ -1,12 +1,19 @@
+import behavioral.chainofresponsibility.AuthenticationService;
+import behavioral.chainofresponsibility.User;
 import behavioral.commandPattern.*;
 import behavioral.iterator.DepthFirstIterator;
 import behavioral.iterator.Vertex;
+import behavioral.mediator.LoginButton;
+import behavioral.mediator.LoginMediator;
+import behavioral.memento.Editor;
 import behavioral.observer.*;
 import behavioral.state.OffState;
 import behavioral.state.Phone;
 import behavioral.strategy.CreditCard;
 import behavioral.strategy.CreditCardPaymentStrategy;
 import behavioral.strategy.PaymentService;
+import behavioral.templateMethod.DiabloLoader;
+import behavioral.templateMethod.WitcherLoader;
 import behavioral.visitor.Bank;
 import behavioral.visitor.InsuranceVisitor;
 import creational.abstractFactory.GovenmentInsuranceProvider;
@@ -14,26 +21,18 @@ import creational.abstractFactory.InsuranceProvider;
 import creational.abstractFactory.PrivateInsuranceProvider;
 import creational.builder.Car;
 import creational.builder.CarBuilder;
-import behavioral.chainofresponsibility.AuthenticationService;
-import behavioral.chainofresponsibility.User;
 import creational.factory.GenericProduct;
 import creational.factory.ProductFactory;
 import creational.factory.ProductType;
 import creational.factoryMethod.BeefBurgerCooker;
 import creational.factoryMethod.Cooker;
 import creational.factoryMethod.VeggieCooker;
-import behavioral.mediator.LoginButton;
-import behavioral.mediator.LoginMediator;
-import behavioral.memento.Editor;
 import creational.prototypePattern.PrototypeRegistry;
 import creational.singleton.SingletonLogger;
-import behavioral.templateMethod.DiabloLoader;
-import behavioral.templateMethod.WitcherLoader;
 import structural.adapter.MultiRestoApp;
 import structural.adapter.XmlJsonAdapter;
 import structural.bridge.AmericanMenu;
 import structural.bridge.ChickenPizza;
-import structural.bridge.Pizza;
 import structural.composite.Book;
 import structural.composite.Box;
 import structural.composite.Videogame;
@@ -41,11 +40,13 @@ import structural.decorator.EmailNotifier;
 import structural.decorator.FacebookNotifierDecorator;
 import structural.decorator.INotifier;
 import structural.decorator.WhatsappNotifierDecorator;
-import structural.facade.CryptoCurrencyProvider;
 import structural.facade.CryptoFacade;
 import structural.facade.DatabaseService;
 import structural.facade.MailService;
 import structural.flyweight.BookProvider;
+import structural.proxy.Internet;
+import structural.proxy.ProxyInternet;
+import structural.proxy.WorldWideInternet;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -266,9 +267,15 @@ public class Main {
         //Flyweight pattern
         structural.flyweight.Book storyBook = BookProvider.createBook("TTS", "12345", 33, "XYZ",
                 "Dummy", "DummyPrinter", "DummyEditor");
-        System.out.print("Book Created: "+storyBook);
+        System.out.println("Book Created: "+storyBook);
 
         //Proxy pattern
-        
+        Internet realInternet = new WorldWideInternet();
+        ProxyInternet proxyInternet = new ProxyInternet();
+
+        proxyInternet.blockWebsite("google.com");
+
+        realInternet.visitWebsite("google.com");
+        proxyInternet.visitWebsite("google.com");
     }
 }
